@@ -1,18 +1,31 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { Routes, RouterModule } from '@angular/router';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent } from './core/containers/app-component/app.component';
+
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+import { PortalModule } from './portal/portal.module';
+
+export const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'news' },
+  {
+    path: 'news',
+    loadChildren: () =>
+      import('./portal/portal.module').then((m) => m.PortalModule),
+  },
+  { path: '**', pathMatch: 'full', redirectTo: 'news' },
+];
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    CoreModule,
+    PortalModule,
+    SharedModule,
+    RouterModule.forRoot(routes),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
