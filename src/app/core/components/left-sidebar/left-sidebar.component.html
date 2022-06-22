@@ -1,0 +1,35 @@
+<div class="sidebar">
+
+  <picture class="trends-logo">
+    <source
+      srcset="/assets/Iconos/Favicon/favicon_avantio.svg"
+      media="(max-width: 768px)"
+    />
+    <source srcset="/assets/Logos/aTrendsPRO.svg" />
+    <img src="/assets/Logos/aTrendsPRO.svg" alt="Avantio logo" />
+  </picture>
+
+  <div class="news-panel">
+    <span>Hoy</span>
+    <div>{{ amountOfNews }} Noticias</div>
+  </div>
+
+  <button
+    *ngFor="let provider of providers"
+    class="provider"
+    [ngClass]="{ active: activeProvider === provider.id }"
+    (click)="setActiveProvider(provider.id)"
+  >
+    <picture>
+      <source [srcset]="provider.src_small" media="(max-width: 768px)" />
+      <source [srcset]="provider.src_big" />
+      <img
+        [src]="provider.src_small"
+        [alt]="provider.alt_text"
+        style="width: auto"
+      />
+    </picture>
+  </button>
+
+  <span class="legal">Copyright © 2018 Avantio Trends</span>
+</div>

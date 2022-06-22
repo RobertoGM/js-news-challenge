@@ -1,0 +1,14 @@
+@import 'abstracts/variables'
+
+.content
+    display: flex
+    flex-direction: column
+    margin-left: $app-right-sidebar-open
+
+@media screen and (max-width: $breakpoint-tablet)
+    .content
+        margin-left: $app-right-sidebar-collapsed
+
+@media screen and (max-width: $breakpoint-mobile)
+    .content
+        margin-left: 0
