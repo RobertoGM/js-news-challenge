@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NewsProvider } from 'src/app/portal/feed/models/news.model';
+import { Router } from '@angular/router';
+import { NewsProvider, Trends } from 'src/app/portal/feed/models/news.model';
 
 @Component({
   selector: 'app-left-sidebar',
@@ -26,9 +27,10 @@ export class LeftSidebarComponent {
 
   activeProvider: number | undefined;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   setActiveProvider(providerId: number): void {
     this.activeProvider = providerId;
+    this.router.navigate([`news/${Trends[providerId]}`]);
   }
 }
