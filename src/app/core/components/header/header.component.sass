@@ -1,0 +1,35 @@
+@import 'abstracts/variables'
+@import 'abstracts/mixins'
+@import 'base/typography'
+
+.header-body
+    display: flex
+    flex-direction: row
+    justify-content: flex-end
+
+    .header-logo
+        display: none
+
+    .header-date
+        @extend .font-m
+        color: $white
+        display: flex
+        justify-content: center
+        align-items: center
+        height: 66px
+        width: 290px
+        background-color: $black
+        border-bottom-left-radius: 50px
+
+@media screen and (max-width: $breakpoint-mobile)
+    .header-body
+        justify-content: space-between
+        .header-date
+            @extend .font-m
+            width: 160px
+
+        .header-logo
+            @include pad-right()
+            @include pad-left()
+            display: block
+            width: 100px
