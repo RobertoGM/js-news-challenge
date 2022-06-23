@@ -1,0 +1,92 @@
+// @import 'abstracts/variables'
+// @import 'abstracts/mixins'
+// @import 'base/typography'
+// @import 'base/reset'
+
+// .right-sidebar-body
+//     display: flex
+//     flex-direction: column
+//     background-color: $white
+//     @include pad(8)
+//     box-sizing: border-box
+//     margin: 0
+//     right: 0
+//     width: 30vw
+//     position: fixed
+//     height: 100%
+//     overflow: auto
+//     z-index: 100
+//     box-shadow: -1px 1px 20px rgba(0, 0, 0, 0.12)
+//     border-radius: 33px 3px 3px 3px
+//     .right-sidebar-header
+//         @include push-bottom(10)
+//         display: flex
+//         flex-direction: row
+//         justify-content: space-between
+//         align-items: center
+//         .right-sidebar-header-buttons
+//             display: flex
+//             flex-direction: row
+//             button
+//                 @extend .reset-button
+//                 height: 40px
+//                 width: 112px
+//                 text-align: center
+//             button:first-child
+//                 @include push-right()
+//                 color: #939393
+//             button:last-child
+//                 background-color: $primary
+//                 color: $white
+//                 border-radius: 2px
+//     .right-sidebar-field, .right-sidebar-textarea
+
+//         display: flex
+//         flex-direction: column
+//         span
+//             @extend .font-m
+//             @extend .font-bold
+//             @include push-bottom(2)
+//         input, textarea
+//             @include push-bottom(10)
+//             @include pad()
+//             border: 0.6px solid #D8D8D8
+//             border-radius: 3px
+//         textarea
+//             @include push-bottom(0)
+//             height: 100%
+//             resize: none
+//     .right-sidebar-textarea
+//         flex: 1
+
+//     .right-sidebar-header-mobile
+//         display: none
+
+// //Tablet design
+// @media screen and (max-width: $breakpoint-tablet)
+//     .right-sidebar-body
+//         width: 70vw
+
+// //Mobile design
+// @media screen and (max-width: $breakpoint-mobile)
+//     .right-sidebar-body
+//         width: 100vw
+//         border-radius: 0
+//         .right-sidebar-header
+//             .right-sidebar-header-buttons
+//                 display: none
+
+//         .right-sidebar-header-mobile
+//             @include push-top()
+//             display: flex
+//             flex-direction: column
+//             button
+//                 width: 100%
+//                 text-align: center
+//             button:first-child
+//                 @include push-bottom()
+//                 background-color: $primary
+//                 color: $white
+//                 border-radius: 2px
+//             button:last-child
+//                 color: #939393

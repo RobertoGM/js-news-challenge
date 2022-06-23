@@ -7,23 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MainFeedComponent } from './feed/components/main-feed/main-feed.component';
 import { NormalFeedComponent } from './feed/components/normal-feed/normal-feed.component';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: FeedComponent,
-  },
-  {
-    path: 'news/:trend',
-    component: FeedComponent,
-  },
-  {
-    path: 'details/:id',
-    component: DetailComponent,
-  },
-];
-
 @NgModule({
   declarations: [FeedComponent, DetailComponent, MainFeedComponent, NormalFeedComponent],
-  imports: [CommonModule, HttpClientModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, HttpClientModule],
 })
 export class PortalModule {}

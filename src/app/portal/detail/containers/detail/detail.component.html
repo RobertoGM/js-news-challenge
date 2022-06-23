@@ -23,7 +23,7 @@
     <ng-template #loading> Cargando... </ng-template>
 
     <div class="details-actions">
-      <button>
+      <button (click)="openSidebar(rightSidebarStatus.edit)">
         <img src="/assets/Iconos/Actions/edit.svg" />
       </button>
       <button>
@@ -31,7 +31,7 @@
       </button>
     </div>
   </div>
-  <button class="floating-add-button">
-    <img src="/assets/Iconos/Actions/add.svg">
+  <button class="floating-add-button" (click)="openSidebar(rightSidebarStatus.add)">
+    <img src="/assets/Iconos/Actions/add.svg" />
   </button>
 </div>

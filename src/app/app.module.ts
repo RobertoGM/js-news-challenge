@@ -7,13 +7,23 @@ import { AppComponent } from './core/containers/app-component/app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { PortalModule } from './portal/portal.module';
+import { DetailComponent } from './portal/detail/containers/detail/detail.component';
+import { FeedComponent } from './portal/feed/containers/feed/feed.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'news' },
+
   {
     path: 'news',
-    loadChildren: () =>
-      import('./portal/portal.module').then((m) => m.PortalModule),
+    component: FeedComponent,
+  },
+  {
+    path: 'news/:trend',
+    component: FeedComponent,
+  },
+  {
+    path: 'details/:id',
+    component: DetailComponent,
   },
   { path: '**', pathMatch: 'full', redirectTo: 'news' },
 ];

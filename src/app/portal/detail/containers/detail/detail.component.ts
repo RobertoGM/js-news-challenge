@@ -1,3 +1,7 @@
+import {
+  SidebarsService,
+  RightSidebarStatus,
+} from './../../../../core/services/sidebars.service';
 import { TrendsService } from './../../../feed/services/trends.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -14,10 +18,13 @@ import {
 export class DetailComponent implements OnInit {
   trend: TrendFeed | undefined;
 
+  rightSidebarStatus: typeof RightSidebarStatus = RightSidebarStatus;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private trendsService: TrendsService
+    private trendsService: TrendsService,
+    private sidebarService: SidebarsService
   ) {}
 
   ngOnInit(): void {
@@ -32,5 +39,9 @@ export class DetailComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/news']);
+  }
+
+  openSidebar(status: number): void {
+    this.sidebarService.setSidebarStatus(status);
   }
 }

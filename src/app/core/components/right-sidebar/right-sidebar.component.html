@@ -1,1 +1,33 @@
-<p>right-sidebar works!</p>
+<div class="right-sidebar-body">
+  <div class="right-sidebar-header">
+    <span *ngIf="rightSidebarStatus === 1">Nueva noticia</span>
+    <span *ngIf="rightSidebarStatus === 2">Edita la noticia</span>
+    <div class="right-sidebar-header-buttons">
+      <button (click)="close()">Cancelar</button>
+      <button (click)="save()">Guardar</button>
+    </div>
+  </div>
+  <div class="right-sidebar-field">
+    <span>URL</span>
+    <input />
+  </div>
+
+  <div class="right-sidebar-field">
+    <span>Autor</span>
+    <input />
+  </div>
+
+  <div class="right-sidebar-field">
+    <span>Título</span>
+    <input />
+  </div>
+
+  <div class="right-sidebar-textarea">
+    <span>Contenido</span>
+    <textarea></textarea>
+  </div>
+  <div class="right-sidebar-header-mobile">
+      <button class="reset-button" (click)="save()">Guardar</button>
+    <button class="reset-button" (click)="close()">Cancelar</button>
+  </div>
+</div>

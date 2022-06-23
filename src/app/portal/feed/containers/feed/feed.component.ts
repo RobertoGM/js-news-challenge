@@ -2,6 +2,10 @@ import { getTrends, TrendFeed } from './../../models/news.model';
 import { Component, OnInit } from '@angular/core';
 import { TrendsService } from '../../services/trends.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import {
+  RightSidebarStatus,
+  SidebarsService,
+} from 'src/app/core/services/sidebars.service';
 
 @Component({
   selector: 'app-feed',
@@ -16,7 +20,8 @@ export class FeedComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private trendsService: TrendsService
+    private trendsService: TrendsService,
+    private sidebarService: SidebarsService
   ) {}
 
   ngOnInit(): void {
@@ -35,5 +40,9 @@ export class FeedComponent implements OnInit {
 
   goToDetails(newsId: string): void {
     this.router.navigate([`/details/${newsId}`]);
+  }
+
+  openSidebar(): void {
+    this.sidebarService.setSidebarStatus(RightSidebarStatus.add);
   }
 }
