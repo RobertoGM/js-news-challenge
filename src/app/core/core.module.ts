@@ -6,7 +6,7 @@ import { LeftSidebarComponent } from './components/left-sidebar/left-sidebar.com
 import { HeaderComponent } from './components/header/header.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/token.interceptor';
-import { RightSidebarComponent } from './containers/right-sidebar/right-sidebar.component';
+import { RightSidebarComponent } from './components/right-sidebar/right-sidebar.component';
 
 @NgModule({
   declarations: [AppComponent, LeftSidebarComponent, HeaderComponent, RightSidebarComponent],
