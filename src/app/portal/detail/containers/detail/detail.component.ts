@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,6 +8,9 @@ import { Component } from '@angular/core';
 })
 export class DetailComponent {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
+  goBack(): void {
+    this.router.navigate(['/news'])
+  }
 }

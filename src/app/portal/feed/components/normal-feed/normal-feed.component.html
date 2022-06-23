@@ -1,0 +1,12 @@
+<button class="reset-button" (click)="feedClicked()">
+  <div class="normal-feed">
+    <img [src]="feed?.image" />
+    <div
+      class="title"
+      [ngClass]="isSecondary ? 'secondary-title' : 'others-title'"
+    >
+      {{ feed?.title }}
+    </div>
+    <div *ngIf="isSecondary" class="body">{{ feed?.body }}</div>
+  </div>
+</button>

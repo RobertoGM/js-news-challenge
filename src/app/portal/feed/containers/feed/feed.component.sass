@@ -1,0 +1,62 @@
+@import 'abstracts/variables'
+@import 'abstracts/mixins'
+@import 'base/typography'
+
+.feed-body
+    @include pad(20)
+    @include pad-top(10)
+    max-width: 1440px
+    display: flex
+    flex-direction: column
+    margin: auto
+
+    .secondary-feeds
+        @include pad-top(10)
+        @include pad-bottom(10)
+        display: grid
+        grid-template-columns: repeat(2, 1fr)
+        row-gap: 20px
+        column-gap: 20px
+
+    .other-feeds
+        display: grid
+        grid-template-columns: repeat(3, 1fr)
+        grid-gap: 34px
+
+    .add-button
+        position: fixed
+        right: 80px
+        bottom: 30vh
+        background-color: $primary
+        border-radius: 50%
+        border: 0
+        height: 72px
+        width: 72px
+        img
+            filter: invert(1)
+
+//Mobile design
+@media screen and (max-width: $breakpoint-tablet)
+    .feed-body
+        @include pad(10)
+
+//Mobile design
+@media screen and (max-width: $breakpoint-mobile)
+    .feed-body
+        @include pad(5)
+
+        .secondary-feeds
+            grid-template-columns: repeat(1, 1fr)
+
+        .other-feeds
+            grid-template-columns: repeat(1, 1fr)
+
+        .add-button
+            bottom: 24px
+            right: calc(50vw - 24px)
+            height: 48px
+            width: 48px
+            img
+                width: 20px
+                height: 20px
+                filter: invert(1)

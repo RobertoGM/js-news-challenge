@@ -1,0 +1,16 @@
+@import 'abstracts/variables'
+@import 'abstracts/mixins'
+@import 'base/typography'
+@import 'base/reset'
+
+.details-body 
+    @include pad(20)
+    @include pad-top(10)
+    .back-button
+        @extend .font-m
+        display: flex
+        flex-direction: row
+        align-items: center
+        span 
+            @include push-left()
+            @extend .font-uppercase

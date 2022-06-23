@@ -1,0 +1,58 @@
+@import 'abstracts/variables'
+@import 'abstracts/mixins'
+@import 'base/typography'
+@import 'base/reset'
+
+.main-feed
+    @include pad(10)
+    display: flex
+    flex-direction: column
+    box-sizing: border-box
+    height: 318px
+    align-items: flex-start
+    justify-content: flex-end
+    border-radius: 6px
+    color: $white
+    position: relative
+    background-size: cover
+    .mask
+        @include push(-10)
+        position: absolute
+        width: 100%
+        height: 100%
+        background-color: rgba(0,0,0,0.2)
+        border-radius: 6px
+    .title
+        @include pad-bottom(2)
+        @extend .font-xl
+        @extend .font-bold
+        max-width: 530px
+        overflow: hidden
+        text-overflow: ellipsis
+        z-index: 2
+    .body
+        @extend .font-s
+        max-width: 530px
+        overflow: hidden
+        text-overflow: ellipsis
+        display: -webkit-box
+        -webkit-line-clamp: 2
+        -webkit-box-orient: vertical
+        z-index: 2
+.mobile-body
+    @include push-top()
+    @extend .font-l
+    display: none
+
+//Mobile design
+@media screen and (max-width: $breakpoint-mobile)
+    .main-feed
+        height: 270px
+        .body
+            display: none
+    .mobile-body
+        overflow: hidden
+        text-overflow: ellipsis
+        display: -webkit-box
+        -webkit-line-clamp: 4
+        -webkit-box-orient: vertical

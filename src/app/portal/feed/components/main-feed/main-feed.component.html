@@ -1,0 +1,8 @@
+<button class="reset-button" (click)="feedClicked()">
+  <div class="main-feed" [style.background-image]="'url(' + feed?.image + ')'">
+    <div class="mask"></div>
+    <div class="title">{{ feed?.title }}</div>
+    <div class="body">{{ feed?.body }}</div>
+  </div>
+  <div class="mobile-body">{{ feed?.body }}</div>
+</button>

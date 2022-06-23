@@ -25,12 +25,19 @@ export class LeftSidebarComponent {
 
   amountOfNews: number = 132;
 
+  // TODO: Active provider should not be handled here this way. 
+  // The state should change based on the router status. Currently the "active" state is buggy and indicates wrong based on certain navigations.
   activeProvider: number | undefined;
 
   constructor(private router: Router) {}
 
   setActiveProvider(providerId: number): void {
-    this.activeProvider = providerId;
-    this.router.navigate([`news/${Trends[providerId]}`]);
+    if (this.activeProvider === providerId) {
+      this.activeProvider = undefined;
+      this.router.navigate([`news`]);
+    } else {
+      this.activeProvider = providerId;
+      this.router.navigate([`news/${Trends[this.activeProvider]}`]);
+    }
   }
 }

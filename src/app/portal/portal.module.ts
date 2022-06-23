@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { FeedComponent } from './feed/containers/feed/feed.component';
 import { DetailComponent } from './detail/containers/detail/detail.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MainFeedComponent } from './feed/components/main-feed/main-feed.component';
+import { NormalFeedComponent } from './feed/components/normal-feed/normal-feed.component';
 
 const routes: Routes = [
   {
@@ -11,7 +13,7 @@ const routes: Routes = [
     component: FeedComponent,
   },
   {
-    path: ':trend',
+    path: 'news/:trend',
     component: FeedComponent,
   },
   {
@@ -21,7 +23,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [FeedComponent, DetailComponent],
+  declarations: [FeedComponent, DetailComponent, MainFeedComponent, NormalFeedComponent],
   imports: [CommonModule, HttpClientModule, RouterModule.forChild(routes)],
 })
 export class PortalModule {}

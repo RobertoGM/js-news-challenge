@@ -1,0 +1,33 @@
+@import 'abstracts/variables'
+@import 'abstracts/mixins'
+@import 'base/typography'
+
+.normal-feed
+    display: flex
+    flex-direction: column
+    box-sizing: border-box
+
+    img
+        height: 253px
+        width: 100%
+        border-radius: 6px
+
+    .title
+        @include pad-top()
+        @include pad-bottom()
+        @extend .font-bold
+
+    .body
+        @extend .font-xs
+        max-width: 530px
+        overflow: hidden
+        text-overflow: ellipsis
+        display: -webkit-box
+        -webkit-line-clamp: 2
+        -webkit-box-orient: vertical
+
+.secondary-title
+    @extend .font-l
+
+.others-title
+    @extend .font-m
