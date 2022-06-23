@@ -24,6 +24,15 @@ export interface getTrendDetails {
   trend: TrendFeed;
 }
 
+
+export interface newTrend {
+  title?: string | null;
+  body?: string | null;
+  provider?: string | null;
+  url?: string | null;
+}
+
+
 export enum Trends {
   'elmundo',
   'elpais',

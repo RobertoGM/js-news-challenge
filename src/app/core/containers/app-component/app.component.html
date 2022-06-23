@@ -1,5 +1,7 @@
 <div>
   <app-left-sidebar></app-left-sidebar>
+  <app-right-sidebar *ngIf="$rightSidebarStatus | async"></app-right-sidebar>
+  <div class="right-sidebar-mask" *ngIf="$rightSidebarStatus | async"></div>
   <div class="content">
     <app-header></app-header>
     <router-outlet></router-outlet>

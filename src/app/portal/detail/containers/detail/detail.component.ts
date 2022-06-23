@@ -33,12 +33,21 @@ export class DetailComponent implements OnInit {
         .loadSingleTrend(params['id'])
         .subscribe((data: getTrendDetails) => {
           this.trend = data.trend;
+          this.sidebarService.setSelectedNew(params['id']);
         });
     });
   }
 
   goBack(): void {
     this.router.navigate(['/news']);
+  }
+
+  removeNew(): void {
+    if (this.trend) {
+      this.trendsService
+        .removeTrend(this.trend._id)
+        .subscribe(() => this.goBack());
+    }
   }
 
   openSidebar(status: number): void {

@@ -15,6 +15,8 @@ export class SidebarsService {
     RightSidebarStatus.close
   );
 
+  private selectedNew = new BehaviorSubject<string>('');
+
   constructor() {}
 
   getSidebarStatus(): BehaviorSubject<number> {
@@ -23,5 +25,13 @@ export class SidebarsService {
 
   setSidebarStatus(status: number): void {
     this.rightSidebarStatus.next(status);
+  }
+
+  getSelectedNew(): BehaviorSubject<string> {
+    return this.selectedNew;
+  }
+
+  setSelectedNew(id: string): void {
+    this.selectedNew.next(id);
   }
 }

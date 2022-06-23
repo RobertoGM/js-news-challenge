@@ -7,27 +7,29 @@
       <button (click)="save()">Guardar</button>
     </div>
   </div>
-  <div class="right-sidebar-field">
-    <span>URL</span>
-    <input />
-  </div>
+  <form [formGroup]="trendForm">
+    <div class="right-sidebar-field">
+      <span>URL</span>
+      <input type="text" formControlName="url" />
+    </div>
 
-  <div class="right-sidebar-field">
-    <span>Autor</span>
-    <input />
-  </div>
+    <div class="right-sidebar-field">
+      <span>Autor</span>
+      <input type="text" formControlName="provider" />
+    </div>
 
-  <div class="right-sidebar-field">
-    <span>Título</span>
-    <input />
-  </div>
+    <div class="right-sidebar-field">
+      <span>Título</span>
+      <input type="text" formControlName="title" />
+    </div>
 
-  <div class="right-sidebar-textarea">
-    <span>Contenido</span>
-    <textarea></textarea>
-  </div>
+    <div class="right-sidebar-textarea">
+      <span>Contenido</span>
+      <textarea type="text" formControlName="body"></textarea>
+    </div>
+  </form>
   <div class="right-sidebar-header-mobile">
-      <button class="reset-button" (click)="save()">Guardar</button>
+    <button class="reset-button" (click)="save()">Guardar</button>
     <button class="reset-button" (click)="close()">Cancelar</button>
   </div>
 </div>

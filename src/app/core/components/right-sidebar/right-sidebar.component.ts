@@ -6,8 +6,8 @@ import {
   RightSidebarStatus,
 } from './../../services/sidebars.service';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { getTrendDetails } from 'src/app/portal/feed/models/news.model';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-right-sidebar',
@@ -17,26 +17,39 @@ import { getTrendDetails } from 'src/app/portal/feed/models/news.model';
 export class RightSidebarComponent implements OnInit {
   rightSidebarStatus: number | undefined;
   enumRightSidebarStatus: typeof RightSidebarStatus = RightSidebarStatus;
-  trend: TrendFeed | undefined;
+  trendId: string | undefined;
+
+  trendForm = new FormGroup({
+    url: new FormControl(''),
+    provider: new FormControl(''),
+    title: new FormControl(''),
+    body: new FormControl(''),
+  });
 
   constructor(
     private sidebarService: SidebarsService,
-    private route: ActivatedRoute,
     private trendsService: TrendsService
   ) {}
 
   ngOnInit(): void {
-    this.sidebarService
-      .getSidebarStatus()
-      .subscribe((status: number) => (this.rightSidebarStatus = status));
-
-    this.route.params.subscribe((params: Params) => {
-      if (params['id']) {
-        this.trendsService
-          .loadSingleTrend(params['id'])
-          .subscribe((data: getTrendDetails) => {
-            this.trend = data.trend;
-          });
+    this.sidebarService.getSidebarStatus().subscribe((status: number) => {
+      this.rightSidebarStatus = status;
+      if (this.rightSidebarStatus === this.enumRightSidebarStatus.edit) {
+        this.sidebarService.getSelectedNew().subscribe((id: string) => {
+          if (id) {
+            this.trendId = id;
+            this.trendsService
+              .loadSingleTrend(id)
+              .subscribe((data: getTrendDetails) => {
+                this.trendForm.patchValue({
+                  url: data.trend.url,
+                  provider: data.trend.provider,
+                  title: data.trend.title,
+                  body: data.trend.body,
+                });
+              });
+          }
+        });
       }
     });
   }
@@ -46,8 +59,21 @@ export class RightSidebarComponent implements OnInit {
   }
 
   save(): void {
-    //call to save service
-
-    this.sidebarService.setSidebarStatus(RightSidebarStatus.close);
+    if (this.rightSidebarStatus === RightSidebarStatus.add) {
+      this.trendsService
+        .saveProviderTrends(this.trendForm.getRawValue())
+        .subscribe(() =>
+          this.sidebarService.setSidebarStatus(RightSidebarStatus.close)
+        );
+    } else if (
+      this.rightSidebarStatus === RightSidebarStatus.edit &&
+      this.trendId
+    ) {
+      this.trendsService
+        .editProviderTrends(this.trendForm.getRawValue(), this.trendId)
+        .subscribe(() =>
+          this.sidebarService.setSidebarStatus(RightSidebarStatus.close)
+        );
+    }
   }
 }
