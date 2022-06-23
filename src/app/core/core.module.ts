@@ -6,9 +6,10 @@ import { LeftSidebarComponent } from './components/left-sidebar/left-sidebar.com
 import { HeaderComponent } from './components/header/header.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/token.interceptor';
+import { RightSidebarComponent } from './containers/right-sidebar/right-sidebar.component';
 
 @NgModule({
-  declarations: [AppComponent, LeftSidebarComponent, HeaderComponent],
+  declarations: [AppComponent, LeftSidebarComponent, HeaderComponent, RightSidebarComponent],
   imports: [CommonModule, RouterModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

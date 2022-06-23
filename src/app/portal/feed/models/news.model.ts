@@ -19,6 +19,11 @@ export interface getTrends {
   trends: TrendFeed[];
 }
 
+
+export interface getTrendDetails {
+  trend: TrendFeed;
+}
+
 export enum Trends {
   'elmundo',
   'elpais',

@@ -2,15 +2,94 @@
 @import 'abstracts/mixins'
 @import 'base/typography'
 @import 'base/reset'
+@import 'components/buttons'
 
-.details-body 
+.details-body
+    max-width: 1440px
     @include pad(20)
     @include pad-top(10)
+    display: flex
+    flex-direction: column
     .back-button
+        @include push-bottom(10)
         @extend .font-m
         display: flex
         flex-direction: row
         align-items: center
-        span 
+        span
             @include push-left()
             @extend .font-uppercase
+    .details-content
+        display: flex
+        flex-direction: row
+        .details-img
+            height: 358px
+            border-radius: 6px
+            width: 100%
+        .details-info
+            position: relative
+            box-sizing: border-box
+            @include push-all(-5,20,0,20)
+            @include pad(10)
+            background-color: $white
+            z-index: 10
+            box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.149825)
+            border-radius: 12px
+            .details-title
+                @include pad-bottom(6)
+                @extend .font-xl
+                @extend .font-bold
+                .reset-button
+                    width: 12px
+                    height: 12px
+            .details-text
+                @extend .font-m
+                column-count: 2
+                column-gap: 40px
+    .details-actions
+        @include push-left(8)
+        display: flex
+        flex-direction: column
+        button
+            @include push-bottom()
+            background: rgba(241, 95, 65, 0.201956)
+            border-radius: 50%
+            border: 0
+            height: 72px
+            width: 72px
+        button:first-child
+            transform: scaleY(-1)
+
+//Mobile design
+@media screen and (max-width: $breakpoint-mobile)
+    .details-body
+        @include pad()
+        .details-content
+            flex-direction: column-reverse
+            .details-info
+                @include push-all(-5,4,4,4)
+                @include pad()
+                .details-text
+                    column-count: 1
+            .details-actions
+                flex-direction: row
+                justify-content: flex-end
+                button
+                    @include push-left()
+                    height: 32px
+                    width: 32px
+                    line-height: 12px
+                    img
+                        width: 12px
+                        heigth: 12px
+
+//Mobile design
+@media screen and (max-width: $breakpoint-tablet)
+    .details-body
+        @include pad()
+        .details-content
+            .details-info
+                @include push-all(-5,4,4,4)
+                @include pad()
+                .details-text
+                    column-count: 1

@@ -1,6 +1,7 @@
 @import 'abstracts/variables'
 @import 'abstracts/mixins'
 @import 'base/typography'
+@import 'components/buttons'
 
 .feed-body
     @include pad(20)
@@ -23,17 +24,6 @@
         grid-template-columns: repeat(3, 1fr)
         grid-gap: 34px
 
-    .add-button
-        position: fixed
-        right: 80px
-        bottom: 30vh
-        background-color: $primary
-        border-radius: 50%
-        border: 0
-        height: 72px
-        width: 72px
-        img
-            filter: invert(1)
 
 //Mobile design
 @media screen and (max-width: $breakpoint-tablet)
@@ -50,13 +40,3 @@
 
         .other-feeds
             grid-template-columns: repeat(1, 1fr)
-
-        .add-button
-            bottom: 24px
-            right: calc(50vw - 24px)
-            height: 48px
-            width: 48px
-            img
-                width: 20px
-                height: 20px
-                filter: invert(1)

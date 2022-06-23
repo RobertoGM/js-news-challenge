@@ -1,6 +1,37 @@
 <div class="details-body">
-    <button class="back-button reset-button" (click)="goBack()">
-        <img src="/assets/Iconos/Actions/back.svg">
-        <span>Todos los eventos</span>
-    </button>
+  <button class="back-button reset-button" (click)="goBack()">
+    <img src="/assets/Iconos/Actions/back.svg" />
+    <span>Todos los eventos</span>
+  </button>
+
+  <div class="details-content">
+    <div *ngIf="trend; else loading">
+      <img class="details-img" [src]="trend.image" />
+      <div class="details-info">
+        <div class="details-title">
+          {{ trend.title }}
+          <a class="reset-button" [href]="trend.url">
+            <img src="/assets/Iconos/Actions/link.svg" />
+          </a>
+        </div>
+        <div class="details-text">
+          {{ trend.body }}
+        </div>
+      </div>
+    </div>
+
+    <ng-template #loading> Cargando... </ng-template>
+
+    <div class="details-actions">
+      <button>
+        <img src="/assets/Iconos/Actions/edit.svg" />
+      </button>
+      <button>
+        <img src="/assets/Iconos/Actions/delete.svg" />
+      </button>
+    </div>
+  </div>
+  <button class="floating-add-button">
+    <img src="/assets/Iconos/Actions/add.svg">
+  </button>
 </div>
