@@ -9,10 +9,10 @@
     <img src="/assets/Logos/aTrendsPRO.svg" alt="Avantio logo" />
   </picture>
 
-  <div class="news-panel">
+  <button class="news-panel" (click)="setActiveProvider()">
     <span>Hoy</span>
     <div>{{ amountOfNews }} Noticias</div>
-  </div>
+  </button >
 
   <button
     *ngFor="let provider of providers"

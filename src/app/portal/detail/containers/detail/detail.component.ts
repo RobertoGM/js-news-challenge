@@ -28,6 +28,7 @@ export class DetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.sidebarService.setSelectedProvider(undefined);
     this.route.params.subscribe((params: Params) => {
       this.trendsService
         .loadSingleTrend(params['id'])

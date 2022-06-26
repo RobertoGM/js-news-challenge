@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { SidebarsService } from './../../services/sidebars.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NewsProvider, Trends } from 'src/app/portal/feed/models/news.model';
 
@@ -7,7 +9,9 @@ import { NewsProvider, Trends } from 'src/app/portal/feed/models/news.model';
   templateUrl: './left-sidebar.component.html',
   styleUrls: ['./left-sidebar.component.sass'],
 })
-export class LeftSidebarComponent {
+export class LeftSidebarComponent implements OnInit {
+  activeProvider: number | undefined;
+
   providers: NewsProvider[] = [
     {
       id: 0,
@@ -25,19 +29,25 @@ export class LeftSidebarComponent {
 
   amountOfNews: number = 132;
 
-  // TODO: Active provider should not be handled here this way. 
-  // The state should change based on the router status. Currently the "active" state is buggy and indicates wrong based on certain navigations.
-  activeProvider: number | undefined;
+  constructor(
+    private router: Router,
+    private sidebarsService: SidebarsService
+  ) {}
 
-  constructor(private router: Router) {}
+  ngOnInit(): void {
+    this.sidebarsService
+      .getSelectedProvider()
+      .subscribe(
+        (provider: number | undefined) => (this.activeProvider = provider)
+      );
+  }
 
-  setActiveProvider(providerId: number): void {
-    if (this.activeProvider === providerId) {
-      this.activeProvider = undefined;
-      this.router.navigate([`news`]);
+  setActiveProvider(providerId?: number): void {
+    this.sidebarsService.setSelectedProvider(providerId);
+    if (providerId !== undefined) {
+      this.router.navigate([`news/${Trends[providerId]}`]);
     } else {
-      this.activeProvider = providerId;
-      this.router.navigate([`news/${Trends[this.activeProvider]}`]);
+      this.router.navigate([`news`]);
     }
   }
 }

@@ -1,3 +1,5 @@
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FeedComponent } from './feed.component';
@@ -9,6 +11,7 @@ describe('FeedComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [FeedComponent],
+      imports: [RouterTestingModule, HttpClientModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FeedComponent);

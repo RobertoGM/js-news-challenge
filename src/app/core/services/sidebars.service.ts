@@ -16,6 +16,7 @@ export class SidebarsService {
   );
 
   private selectedNew = new BehaviorSubject<string>('');
+  private selectedProvider = new BehaviorSubject<number | undefined>(undefined);
 
   constructor() {}
 
@@ -33,5 +34,13 @@ export class SidebarsService {
 
   setSelectedNew(id: string): void {
     this.selectedNew.next(id);
+  }
+
+  getSelectedProvider(): BehaviorSubject<number | undefined> {
+    return this.selectedProvider;
+  }
+
+  setSelectedProvider(id: number | undefined): void {
+    this.selectedProvider.next(id);
   }
 }
