@@ -3,22 +3,22 @@ import {
   newTrend,
   TrendFeed,
   Trends,
-} from './../../../portal/feed/models/news.model';
+} from '../../../shared/models/feeds.model';
 import { TrendsService } from './../../../portal/feed/services/trends.service';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import {
-  selectRightSidebarStatus,
-  selectSelectedProvider,
-} from '../../store/selectors/sidebar.selectors';
+import { selectDetailFeed } from 'src/app/portal/detail/store/selectors/detail.selectors';
+import { selectTotalFeeds } from 'src/app/portal/feed/store/selectors/feed.selector';
+import { RightSidebarStatus } from '../../models/sidebar.model';
 import {
   setRightSidebarStatus,
   setSelectedProvider,
 } from '../../store/actions/sidebar.actions';
-import { RightSidebarStatus } from '../../models/sidebar.model';
-import { selectTotalFeeds } from 'src/app/portal/feed/store/selectors/feed.selector';
-import { selectDetailFeed } from 'src/app/portal/detail/store/selectors/detail.selectors';
+import {
+  selectRightSidebarStatus,
+  selectSelectedProvider,
+} from '../../store/selectors/sidebar.selectors';
 
 @Component({
   selector: 'app-root',

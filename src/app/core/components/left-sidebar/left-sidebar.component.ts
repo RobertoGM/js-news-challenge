@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { NewsProvider } from 'src/app/portal/feed/models/news.model';
+import { NewsProvider } from 'src/app/shared/models/feeds.model';
 
 @Component({
   selector: 'app-left-sidebar',

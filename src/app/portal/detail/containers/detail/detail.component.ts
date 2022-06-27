@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { TrendsService } from './../../../feed/services/trends.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TrendFeed } from 'src/app/portal/feed/models/news.model';
+import { TrendFeed } from 'src/app/shared/models/feeds.model';
 import { setRightSidebarStatus } from 'src/app/core/store/actions/sidebar.actions';
 import { exitDetail, loadDetail } from '../../store/actions/detail.actions';
 import { selectDetailLoading } from '../../store/selectors/detail.selectors';

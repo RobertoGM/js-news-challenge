@@ -1,4 +1,4 @@
-import { getTrendDetails, getTrends, newTrend } from './../models/news.model';
+import { getTrendDetails, getTrends, newTrend } from '../../../shared/models/feeds.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';

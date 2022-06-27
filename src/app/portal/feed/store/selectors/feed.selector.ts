@@ -1,7 +1,7 @@
-import { Trends } from './../../models/news.model';
+import { Trends } from '../../../../shared/models/feeds.model';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { selectSelectedProvider } from 'src/app/core/store/selectors/sidebar.selectors';
-import { TrendFeed } from '../../models/news.model';
+import { TrendFeed } from '../../../../shared/models/feeds.model';
 import { feedAdapter, FeedState } from './../reducer/feed.reducer';
 
 export const selectFeedState = createFeatureSelector<any>('feed');

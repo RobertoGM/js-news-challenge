@@ -1,5 +1,4 @@
 <div class="sidebar">
-
   <picture class="trends-logo">
     <source
       srcset="/assets/Iconos/Favicon/favicon_avantio.svg"
@@ -11,8 +10,8 @@
 
   <button class="news-panel" (click)="setActiveProvider()">
     <span>Hoy</span>
-    <div #amountOfNews>{{ amountOfNews }} Noticias</div>
-  </button >
+    <div id=newsCount>{{ amountOfNews }} Noticias</div>
+  </button>
 
   <button
     *ngFor="let provider of providers"

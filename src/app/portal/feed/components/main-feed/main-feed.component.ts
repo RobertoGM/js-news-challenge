@@ -1,4 +1,4 @@
-import { TrendFeed } from './../../models/news.model';
+import { TrendFeed } from '../../../../shared/models/feeds.model';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({

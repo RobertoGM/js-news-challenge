@@ -1,5 +1,5 @@
 import { setSelectedProvider } from './../../../../core/store/actions/sidebar.actions';
-import { getTrends, TrendFeed } from './../../models/news.model';
+import { getTrends, TrendFeed } from '../../../../shared/models/feeds.model';
 import { Component, OnInit } from '@angular/core';
 import { TrendsService } from '../../services/trends.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';

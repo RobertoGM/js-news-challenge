@@ -1,4 +1,4 @@
-import { TrendFeed } from '../../../feed/models/news.model';
+import { TrendFeed } from '../../../../shared/models/feeds.model';
 import { createReducer, on } from '@ngrx/store';
 import * as FeedActions from '../actions/feed.actions';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';

@@ -1,4 +1,4 @@
-import { TrendFeed } from './../../../feed/models/news.model';
+import { TrendFeed } from '../../../../shared/models/feeds.model';
 import { createAction, props } from '@ngrx/store';
 
 export const loadDetail = createAction(

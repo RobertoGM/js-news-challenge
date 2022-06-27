@@ -1,4 +1,4 @@
-import { newTrend, TrendFeed } from '../../../feed/models/news.model';
+import { newTrend, TrendFeed } from '../../../../shared/models/feeds.model';
 import { createReducer, on } from '@ngrx/store';
 import * as DetailActions from '../actions/detail.actions';
 

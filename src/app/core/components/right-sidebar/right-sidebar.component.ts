@@ -1,4 +1,4 @@
-import { newTrend, TrendFeed } from './../../../portal/feed/models/news.model';
+import { newTrend, TrendFeed } from '../../../shared/models/feeds.model';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RightSidebarStatus } from '../../models/sidebar.model';
@@ -30,13 +30,15 @@ export class RightSidebarComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    if (this.selectedNews) {
+    if (this.selectedNews && this.status === RightSidebarStatus.edit) {
       this.trendForm.patchValue({
         url: this.selectedNews.url,
         provider: this.selectedNews.provider,
         title: this.selectedNews.title,
         body: this.selectedNews.body,
       });
+    } else {
+      this.trendForm.reset();
     }
   }
 
