@@ -18,6 +18,7 @@ export class TokenInterceptor implements HttpInterceptor {
     request = request.clone({
       setHeaders: {
         'x-avantio-auth': `j5erz9xmpgmyymne02ge8`,
+        'content-type': 'text/plain'
       },
     });
 

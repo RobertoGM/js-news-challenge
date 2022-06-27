@@ -1,11 +1,11 @@
 <div class="feed-body">
   <app-main-feed
-    [feed]="mainTrend"
+    [feed]="mainTrend$ | async"
     (onFeedClicked)="goToDetails($event)"
   ></app-main-feed>
   <div class="secondary-feeds">
     <app-normal-feed
-      *ngFor="let trend of secondaryFeeds"
+      *ngFor="let trend of secondaryTrend$ | async"
       [isSecondary]="true"
       [feed]="trend"
       (onFeedClicked)="goToDetails($event)"
@@ -13,15 +13,12 @@
   </div>
   <div class="other-feeds">
     <app-normal-feed
-      *ngFor="let trend of trends"
+      *ngFor="let trend of otherTrend$ | async"
       [feed]="trend"
       (onFeedClicked)="goToDetails($event)"
     ></app-normal-feed>
   </div>
-  <button
-    class="floating-add-button"
-    (click)="openSidebar()"
-  >
+  <button class="floating-add-button" (click)="openSidebar()">
     <img src="/assets/Iconos/Actions/add.svg" />
   </button>
 </div>

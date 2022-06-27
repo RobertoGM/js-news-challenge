@@ -1,13 +1,12 @@
-import { TrendFeed } from './../../../portal/feed/models/news.model';
+import { setRightSidebarStatus } from './../../store/actions/sidebar.actions';
+import { Store } from '@ngrx/store';
+import { newTrend, TrendFeed } from './../../../portal/feed/models/news.model';
 import { TrendsService } from './../../../portal/feed/services/trends.service';
-import { ActivatedRoute, Params } from '@angular/router';
-import {
-  SidebarsService,
-  RightSidebarStatus,
-} from './../../services/sidebars.service';
-import { Component, OnInit } from '@angular/core';
+
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { getTrendDetails } from 'src/app/portal/feed/models/news.model';
 import { FormGroup, FormControl } from '@angular/forms';
+import { RightSidebarStatus } from '../../models/sidebar.model';
 
 @Component({
   selector: 'app-right-sidebar',
@@ -15,9 +14,16 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./right-sidebar.component.sass'],
 })
 export class RightSidebarComponent implements OnInit {
-  rightSidebarStatus: number | undefined;
+  @Input('status') status: number | null = 0;
+  @Input('selectedNews') selectedNews: TrendFeed | null | undefined;
+  @Output('onClose') onClose: EventEmitter<void> = new EventEmitter();
+  @Output('onAdd') onSave: EventEmitter<newTrend> = new EventEmitter();
+  @Output('onEdit') onEdit: EventEmitter<{
+    trend: TrendFeed;
+    id: string;
+  }> = new EventEmitter();
+
   enumRightSidebarStatus: typeof RightSidebarStatus = RightSidebarStatus;
-  trendId: string | undefined;
 
   trendForm = new FormGroup({
     url: new FormControl(''),
@@ -26,54 +32,34 @@ export class RightSidebarComponent implements OnInit {
     body: new FormControl(''),
   });
 
-  constructor(
-    private sidebarService: SidebarsService,
-    private trendsService: TrendsService
-  ) {}
+  constructor( private store: Store) {}
 
   ngOnInit(): void {
-    this.sidebarService.getSidebarStatus().subscribe((status: number) => {
-      this.rightSidebarStatus = status;
-      if (this.rightSidebarStatus === this.enumRightSidebarStatus.edit) {
-        this.sidebarService.getSelectedNew().subscribe((id: string) => {
-          if (id) {
-            this.trendId = id;
-            this.trendsService
-              .loadSingleTrend(id)
-              .subscribe((data: getTrendDetails) => {
-                this.trendForm.patchValue({
-                  url: data.trend.url,
-                  provider: data.trend.provider,
-                  title: data.trend.title,
-                  body: data.trend.body,
-                });
-              });
-          }
-        });
-      }
-    });
+    if (this.selectedNews) {
+      this.trendForm.patchValue({
+        url: this.selectedNews.url,
+        provider: this.selectedNews.provider,
+        title: this.selectedNews.title,
+        body: this.selectedNews.body,
+      });
+    }
   }
 
   close(): void {
-    this.sidebarService.setSidebarStatus(RightSidebarStatus.close);
+    this.onClose.emit();
   }
 
   save(): void {
-    if (this.rightSidebarStatus === RightSidebarStatus.add) {
-      this.trendsService
-        .saveProviderTrends(this.trendForm.getRawValue())
-        .subscribe(() =>
-          this.sidebarService.setSidebarStatus(RightSidebarStatus.close)
-        );
+    if (this.status === RightSidebarStatus.add) {
+      this.onSave.emit(this.trendForm.getRawValue() as newTrend);
     } else if (
-      this.rightSidebarStatus === RightSidebarStatus.edit &&
-      this.trendId
+      this.status === RightSidebarStatus.edit &&
+      this.selectedNews?._id
     ) {
-      this.trendsService
-        .editProviderTrends(this.trendForm.getRawValue(), this.trendId)
-        .subscribe(() =>
-          this.sidebarService.setSidebarStatus(RightSidebarStatus.close)
-        );
+      this.onEdit.emit({
+        trend: this.trendForm.getRawValue() as TrendFeed,
+        id: this.selectedNews?._id,
+      });
     }
   }
 }

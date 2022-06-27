@@ -1,7 +1,18 @@
 <div>
-  <app-left-sidebar></app-left-sidebar>
-  <app-right-sidebar *ngIf="$rightSidebarStatus | async"></app-right-sidebar>
-  <div class="right-sidebar-mask" *ngIf="$rightSidebarStatus | async"></div>
+  <app-left-sidebar
+    [selectedProvider]="selectedProvider$ | async"
+    [amountOfNews]="totalFeeds$ | async"
+    (onProviderSelect)="filterProvider($event)"
+  ></app-left-sidebar>
+  <app-right-sidebar
+    *ngIf="rightSidebarStatus$ | async as rightSidebarStatus"
+    [status]="rightSidebarStatus"
+    [selectedNews]="selectedNews$ | async"
+    (onClose)="closeRightSidebar()"
+    (onAdd)="saveTrend($event)"
+    (onEdit)="editTrend($event)"
+  ></app-right-sidebar>
+  <div class="right-sidebar-mask" *ngIf="rightSidebarStatus$ | async"></div>
   <div class="content">
     <app-header></app-header>
     <router-outlet></router-outlet>

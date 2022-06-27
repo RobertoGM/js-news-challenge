@@ -11,12 +11,18 @@ export class TrendsService {
 
   constructor(private readonly http: HttpClient) {}
 
-  editProviderTrends(editedTrend: newTrend, id: string): Observable<getTrends> {
-    return this.http.put<getTrends>(`${this.baseUrl}/${id}`, editedTrend);
+  editProviderTrends(editedTrend: {
+    trend: newTrend;
+    id: string;
+  }): Observable<getTrends> {
+    return this.http.put<getTrends>(
+      `${this.baseUrl}/${editedTrend.id}`,
+      editedTrend.trend
+    );
   }
 
   saveProviderTrends(newTrend: newTrend): Observable<getTrends> {
-    return this.http.post<getTrends>(`${this.baseUrl}`, newTrend);
+    return this.http.post<getTrends>(`${this.baseUrl}`, { ...newTrend });
   }
 
   removeTrend(id: string): Observable<getTrends> {

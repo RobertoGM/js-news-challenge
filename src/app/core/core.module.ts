@@ -10,7 +10,12 @@ import { RightSidebarComponent } from './components/right-sidebar/right-sidebar.
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, LeftSidebarComponent, HeaderComponent, RightSidebarComponent],
+  declarations: [
+    AppComponent,
+    LeftSidebarComponent,
+    HeaderComponent,
+    RightSidebarComponent,
+  ],
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

@@ -3,35 +3,37 @@
     <img src="/assets/Iconos/Actions/back.svg" />
     <span>Todos los eventos</span>
   </button>
-
-  <div class="details-content">
-    <div *ngIf="trend; else loading">
-      <img class="details-img" [src]="trend.image" />
-      <div class="details-info">
-        <div class="details-title">
-          {{ trend.title }}
-          <a class="reset-button" [href]="trend.url">
-            <img src="/assets/Iconos/Actions/link.svg" />
-          </a>
-        </div>
-        <div class="details-text">
-          {{ trend.body }}
+  <div *ngIf="detailFeed$ | async as detailFeed; else loading">
+    <div class="details-content">
+      <div>
+        <img class="details-img" [src]="detailFeed.image" />
+        <div class="details-info">
+          <div class="details-title">
+            {{ detailFeed.title }}
+            <a class="reset-button" [href]="detailFeed.url">
+              <img src="/assets/Iconos/Actions/link.svg" />
+            </a>
+          </div>
+          <div class="details-text">
+            {{ detailFeed.body }}
+          </div>
         </div>
       </div>
+      <div class="details-actions">
+        <button (click)="openSidebar(rightSidebarStatus.edit)">
+          <img src="/assets/Iconos/Actions/edit.svg" />
+        </button>
+        <button (click)="removeNew(detailFeed._id)">
+          <img src="/assets/Iconos/Actions/delete.svg" />
+        </button>
+      </div>
     </div>
-
-    <ng-template #loading> Cargando... </ng-template>
-
-    <div class="details-actions">
-      <button (click)="openSidebar(rightSidebarStatus.edit)">
-        <img src="/assets/Iconos/Actions/edit.svg" />
-      </button>
-      <button (click)="removeNew()">
-        <img src="/assets/Iconos/Actions/delete.svg" />
-      </button>
-    </div>
+    <button
+      class="floating-add-button"
+      (click)="openSidebar(rightSidebarStatus.add)"
+    >
+      <img src="/assets/Iconos/Actions/add.svg" />
+    </button>
   </div>
-  <button class="floating-add-button" (click)="openSidebar(rightSidebarStatus.add)">
-    <img src="/assets/Iconos/Actions/add.svg" />
-  </button>
+  <ng-template #loading> Cargando... </ng-template>
 </div>

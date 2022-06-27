@@ -1,22 +1,25 @@
-import {
-  SidebarsService,
-  RightSidebarStatus,
-} from './../../../../core/services/sidebars.service';
+import { selectDetailFeed } from './../../store/selectors/detail.selectors';
+import { Store } from '@ngrx/store';
 import { TrendsService } from './../../../feed/services/trends.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import {
-  getTrendDetails,
-  TrendFeed,
-} from 'src/app/portal/feed/models/news.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { TrendFeed } from 'src/app/portal/feed/models/news.model';
+import { setRightSidebarStatus } from 'src/app/core/store/actions/sidebar.actions';
+import { exitDetail, loadDetail } from '../../store/actions/detail.actions';
+import { selectDetailLoading } from '../../store/selectors/detail.selectors';
+import { Observable } from 'rxjs';
+import { RightSidebarStatus } from 'src/app/core/models/sidebar.model';
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.sass'],
 })
-export class DetailComponent implements OnInit {
-  trend: TrendFeed | undefined;
+export class DetailComponent implements OnInit, OnDestroy {
+  detailLoading$: Observable<boolean> = this.store.select(selectDetailLoading);
+
+  detailFeed$: Observable<TrendFeed | undefined> =
+    this.store.select(selectDetailFeed);
 
   rightSidebarStatus: typeof RightSidebarStatus = RightSidebarStatus;
 
@@ -24,34 +27,28 @@ export class DetailComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private trendsService: TrendsService,
-    private sidebarService: SidebarsService
+    private store: Store
   ) {}
 
   ngOnInit(): void {
-    this.sidebarService.setSelectedProvider(undefined);
     this.route.params.subscribe((params: Params) => {
-      this.trendsService
-        .loadSingleTrend(params['id'])
-        .subscribe((data: getTrendDetails) => {
-          this.trend = data.trend;
-          this.sidebarService.setSelectedNew(params['id']);
-        });
+      this.store.dispatch(loadDetail({ id: params['id'] }));
     });
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(exitDetail());
   }
 
   goBack(): void {
     this.router.navigate(['/news']);
   }
 
-  removeNew(): void {
-    if (this.trend) {
-      this.trendsService
-        .removeTrend(this.trend._id)
-        .subscribe(() => this.goBack());
-    }
+  removeNew(id: string): void {
+    this.trendsService.removeTrend(id).subscribe(() => this.goBack());
   }
 
   openSidebar(status: number): void {
-    this.sidebarService.setSidebarStatus(status);
+    this.store.dispatch(setRightSidebarStatus({ status }));
   }
 }

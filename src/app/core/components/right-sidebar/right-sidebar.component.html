@@ -1,7 +1,7 @@
 <div class="right-sidebar-body">
   <div class="right-sidebar-header">
-    <span *ngIf="rightSidebarStatus === 1">Nueva noticia</span>
-    <span *ngIf="rightSidebarStatus === 2">Edita la noticia</span>
+    <span *ngIf="status === enumRightSidebarStatus.add">Nueva noticia</span>
+    <span *ngIf="status === enumRightSidebarStatus.edit">Edita la noticia</span>
     <div class="right-sidebar-header-buttons">
       <button (click)="close()">Cancelar</button>
       <button (click)="save()">Guardar</button>

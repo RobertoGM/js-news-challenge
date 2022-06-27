@@ -17,7 +17,7 @@
   <button
     *ngFor="let provider of providers"
     class="provider"
-    [ngClass]="{ active: activeProvider === provider.id }"
+    [ngClass]="{ active: selectedProvider === provider.id }"
     (click)="setActiveProvider(provider.id)"
   >
     <picture>

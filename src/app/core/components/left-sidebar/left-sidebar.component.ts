@@ -1,16 +1,17 @@
-import { Observable } from 'rxjs';
-import { SidebarsService } from './../../services/sidebars.service';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { NewsProvider, Trends } from 'src/app/portal/feed/models/news.model';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { NewsProvider } from 'src/app/portal/feed/models/news.model';
 
 @Component({
   selector: 'app-left-sidebar',
   templateUrl: './left-sidebar.component.html',
   styleUrls: ['./left-sidebar.component.sass'],
 })
-export class LeftSidebarComponent implements OnInit {
-  activeProvider: number | undefined;
+export class LeftSidebarComponent {
+  @Input('selectedProvider') selectedProvider: number | undefined | null;
+  @Input('amountOfNews') amountOfNews: number | null | undefined;
+  @Output('onProviderSelect') onProviderSelect: EventEmitter<
+    number | undefined
+  > = new EventEmitter();
 
   providers: NewsProvider[] = [
     {
@@ -27,27 +28,9 @@ export class LeftSidebarComponent implements OnInit {
     },
   ];
 
-  amountOfNews: number = 132;
-
-  constructor(
-    private router: Router,
-    private sidebarsService: SidebarsService
-  ) {}
-
-  ngOnInit(): void {
-    this.sidebarsService
-      .getSelectedProvider()
-      .subscribe(
-        (provider: number | undefined) => (this.activeProvider = provider)
-      );
-  }
+  constructor() {}
 
   setActiveProvider(providerId?: number): void {
-    this.sidebarsService.setSelectedProvider(providerId);
-    if (providerId !== undefined) {
-      this.router.navigate([`news/${Trends[providerId]}`]);
-    } else {
-      this.router.navigate([`news`]);
-    }
+    this.onProviderSelect.emit(providerId);
   }
 }

@@ -1,11 +1,18 @@
+import { setSelectedProvider } from './../../../../core/store/actions/sidebar.actions';
 import { getTrends, TrendFeed } from './../../models/news.model';
 import { Component, OnInit } from '@angular/core';
 import { TrendsService } from '../../services/trends.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { setRightSidebarStatus } from 'src/app/core/store/actions/sidebar.actions';
+import { RightSidebarStatus } from 'src/app/core/models/sidebar.model';
+import { loadFeeds } from '../../store/actions/feed.actions';
 import {
-  RightSidebarStatus,
-  SidebarsService,
-} from 'src/app/core/services/sidebars.service';
+  selectMainTrend,
+  selectOtherTrend,
+  selectSecondaryTrend,
+} from '../../store/selectors/feed.selector';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-feed',
@@ -13,36 +20,30 @@ import {
   styleUrls: ['./feed.component.sass'],
 })
 export class FeedComponent implements OnInit {
-  trends: TrendFeed[] = [];
-  secondaryFeeds: TrendFeed[] = [];
-  mainTrend: TrendFeed | undefined;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private trendsService: TrendsService,
-    private sidebarService: SidebarsService
-  ) {}
+  mainTrend$: Observable<TrendFeed | undefined> =
+    this.store.select(selectMainTrend);
+
+  secondaryTrend$: Observable<TrendFeed[] | undefined> =
+    this.store.select(selectSecondaryTrend);
+
+  otherTrend$: Observable<TrendFeed[] | undefined> =
+    this.store.select(selectOtherTrend);
+
+  constructor(private router: Router, private store: Store) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.trendsService.loadProviderTrends().subscribe((data: getTrends) => {
-        this.trends = params['trend']
-          ? data.trends.filter((t: TrendFeed) => t.provider === params['trend'])
-          : data.trends;
-
-        this.mainTrend = this.trends.shift();
-        this.secondaryFeeds = this.trends.slice(0, 2);
-        this.trends.splice(0, 2);
-      });
-    });
+    this.store.dispatch(loadFeeds());
   }
 
   goToDetails(newsId: string): void {
+    this.store.dispatch(setSelectedProvider({ provider: undefined }));
     this.router.navigate([`/details/${newsId}`]);
   }
 
   openSidebar(): void {
-    this.sidebarService.setSidebarStatus(RightSidebarStatus.add);
+    this.store.dispatch(
+      setRightSidebarStatus({ status: RightSidebarStatus.add })
+    );
   }
 }

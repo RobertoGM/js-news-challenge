@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./main-feed.component.sass'],
 })
 export class MainFeedComponent {
-  @Input('feed') feed: TrendFeed | undefined;
+  @Input('feed') feed: TrendFeed | null | undefined;
   @Output() onFeedClicked = new EventEmitter<string>();
 
   constructor() {}
