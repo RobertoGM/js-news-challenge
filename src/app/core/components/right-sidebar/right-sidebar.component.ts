@@ -1,10 +1,5 @@
-import { setRightSidebarStatus } from './../../store/actions/sidebar.actions';
-import { Store } from '@ngrx/store';
 import { newTrend, TrendFeed } from './../../../portal/feed/models/news.model';
-import { TrendsService } from './../../../portal/feed/services/trends.service';
-
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { getTrendDetails } from 'src/app/portal/feed/models/news.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RightSidebarStatus } from '../../models/sidebar.model';
 
@@ -19,7 +14,7 @@ export class RightSidebarComponent implements OnInit {
   @Output('onClose') onClose: EventEmitter<void> = new EventEmitter();
   @Output('onAdd') onSave: EventEmitter<newTrend> = new EventEmitter();
   @Output('onEdit') onEdit: EventEmitter<{
-    trend: TrendFeed;
+    trend: newTrend;
     id: string;
   }> = new EventEmitter();
 
@@ -32,7 +27,7 @@ export class RightSidebarComponent implements OnInit {
     body: new FormControl(''),
   });
 
-  constructor( private store: Store) {}
+  constructor() {}
 
   ngOnInit(): void {
     if (this.selectedNews) {
@@ -57,7 +52,7 @@ export class RightSidebarComponent implements OnInit {
       this.selectedNews?._id
     ) {
       this.onEdit.emit({
-        trend: this.trendForm.getRawValue() as TrendFeed,
+        trend: this.trendForm.getRawValue() as newTrend,
         id: this.selectedNews?._id,
       });
     }

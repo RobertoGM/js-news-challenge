@@ -3,8 +3,8 @@
     <span *ngIf="status === enumRightSidebarStatus.add">Nueva noticia</span>
     <span *ngIf="status === enumRightSidebarStatus.edit">Edita la noticia</span>
     <div class="right-sidebar-header-buttons">
-      <button (click)="close()">Cancelar</button>
-      <button (click)="save()">Guardar</button>
+      <button id=closeButton (click)="close()">Cancelar</button>
+      <button id=submitButton (click)="save()">Guardar</button>
     </div>
   </div>
   <form [formGroup]="trendForm">
@@ -29,7 +29,7 @@
     </div>
   </form>
   <div class="right-sidebar-header-mobile">
-    <button class="reset-button" (click)="save()">Guardar</button>
-    <button class="reset-button" (click)="close()">Cancelar</button>
+    <button #closeButton (click)="close()">Cancelar</button>
+    <button #submitButton (click)="save()">Guardar</button>
   </div>
 </div>

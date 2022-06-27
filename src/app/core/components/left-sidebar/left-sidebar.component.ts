@@ -10,9 +10,9 @@ export class LeftSidebarComponent {
   @Input('selectedProvider') selectedProvider: number | undefined | null;
   @Input('amountOfNews') amountOfNews: number | null | undefined;
   @Output('onProviderSelect') onProviderSelect: EventEmitter<
-    number | undefined
+  number | undefined
   > = new EventEmitter();
-
+  
   providers: NewsProvider[] = [
     {
       id: 0,

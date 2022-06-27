@@ -1,45 +1,21 @@
-import { Observable, of } from 'rxjs';
-import {
-  RightSidebarStatus,
-  SidebarsService,
-} from './../../services/sidebars.service';
-import { TrendsService } from './../../../portal/feed/services/trends.service';
-import { HttpClientModule } from '@angular/common/http';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RightSidebarComponent } from './right-sidebar.component';
-import { TrendFeed } from 'src/app/portal/feed/models/news.model';
-import { DebugElement, enableProdMode } from '@angular/core';
-import { By } from '@angular/platform-browser';
-
-class TrendsServiceMock {
-  public loadSingleTrend(): Observable<any> {
-    return of();
-  }
-}
+import { RightSidebarStatus } from '../../models/sidebar.model';
+import { DebugElement } from '@angular/core';
 
 describe('RightSidebarComponent', () => {
   let component: RightSidebarComponent;
   let fixture: ComponentFixture<RightSidebarComponent>;
-  let trendsService: TrendsService;
-  let sidebarsService: SidebarsService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [RightSidebarComponent],
-      imports: [HttpClientModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RightSidebarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    trendsService = TestBed.inject(TrendsService);
-    sidebarsService = TestBed.inject(SidebarsService);
   });
 
   it('should create', () => {
@@ -47,7 +23,7 @@ describe('RightSidebarComponent', () => {
   });
 
   it('should show title for new news when add mode', () => {
-    component.rightSidebarStatus = RightSidebarStatus.add;
+    component.status = RightSidebarStatus.add;
     fixture.detectChanges();
     const bannerDe: DebugElement = fixture.debugElement;
     const bannerEl: HTMLElement = bannerDe.nativeElement;
@@ -55,31 +31,57 @@ describe('RightSidebarComponent', () => {
     expect(p.textContent).toEqual('Nueva noticia');
   });
 
-  it('should show title for edit news when edit mode', () => {
-    component.rightSidebarStatus = RightSidebarStatus.edit;
+  it('should emit close when clicked on Cancel', () => {
+    spyOn(component.onClose, 'emit');
+    const buttonDe: DebugElement = fixture.debugElement;
+    const buttonEl: HTMLElement = buttonDe.nativeElement;
+    const b = buttonEl.querySelector('#closeButton')!;
+    b.dispatchEvent(new Event('click'));
+    expect(component.onClose.emit).toHaveBeenCalledTimes(1);
+    expect(component.onClose.emit).toHaveBeenCalledWith();
+  });
+
+  it('should emit save when clicked on Guardar and status is add', () => {
+    spyOn(component.onSave, 'emit');
+    spyOn(component.onEdit, 'emit');
+    component.status = RightSidebarStatus.add;
     fixture.detectChanges();
-    const bannerDe: DebugElement = fixture.debugElement;
-    const bannerEl: HTMLElement = bannerDe.nativeElement;
-    const p = bannerEl.querySelector('span')!;
-    expect(p.textContent).toEqual('Edita la noticia');
+    const buttonDe: DebugElement = fixture.debugElement;
+    const buttonEl: HTMLElement = buttonDe.nativeElement;
+    const b = buttonEl.querySelector('#submitButton')!;
+    b.dispatchEvent(new Event('click'));
+    expect(component.onSave.emit).toHaveBeenCalledTimes(1);
+    expect(component.onEdit.emit).toHaveBeenCalledTimes(0);
   });
 
-  it('should call save when the sidebar is opened in add mode', () => {
-    spyOn(trendsService, 'saveProviderTrends').and.returnValue(of());
-    spyOn(trendsService, 'editProviderTrends').and.returnValue(of());
-    component.rightSidebarStatus = RightSidebarStatus.add;
-    component.save();
-    expect(trendsService.saveProviderTrends).toHaveBeenCalled();
-    expect(trendsService.editProviderTrends).not.toHaveBeenCalled();
-  });
-
-  it('should call edit when the sidebar is opened in edit mode', () => {
-    spyOn(trendsService, 'editProviderTrends').and.returnValue(of());
-    spyOn(trendsService, 'saveProviderTrends').and.returnValue(of());
-    component.rightSidebarStatus = RightSidebarStatus.edit;
-    component.trendId = 'id';
-    component.save();
-    expect(trendsService.editProviderTrends).toHaveBeenCalled();
-    expect(trendsService.saveProviderTrends).not.toHaveBeenCalled();
+  it('should emit edit when clicked on Guardar and status is edit', () => {
+    spyOn(component.onSave, 'emit');
+    spyOn(component.onEdit, 'emit');
+    component.selectedNews = {
+      _id: '1',
+      body: 'b',
+      image: 'i',
+      title: 't',
+      createdAt: 'ca',
+      provider: 'p',
+      url: 'u',
+    };
+    component.status = RightSidebarStatus.edit;
+    component.ngOnInit();
+    fixture.detectChanges();
+    const buttonDe: DebugElement = fixture.debugElement;
+    const buttonEl: HTMLElement = buttonDe.nativeElement;
+    const b = buttonEl.querySelector('#submitButton')!;
+    b.dispatchEvent(new Event('click'));
+    expect(component.onEdit.emit).toHaveBeenCalledOnceWith({
+      trend: {
+        body: 'b',
+        title: 't',
+        provider: 'p',
+        url: 'u',
+      },
+      id: '1',
+    });
+    expect(component.onSave.emit).toHaveBeenCalledTimes(0);
   });
 });

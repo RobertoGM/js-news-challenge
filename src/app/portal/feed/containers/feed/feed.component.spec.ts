@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FeedComponent } from './feed.component';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('FeedComponent', () => {
   let component: FeedComponent;
@@ -12,6 +13,7 @@ describe('FeedComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [FeedComponent],
       imports: [RouterTestingModule, HttpClientModule],
+      providers: [provideMockStore({})],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FeedComponent);

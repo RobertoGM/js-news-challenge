@@ -61,7 +61,7 @@ export class AppComponent {
       );
   }
 
-  editTrend(editedTrend: { trend: TrendFeed; id: string }): void {
+  editTrend(editedTrend: { trend: newTrend; id: string }): void {
     this.trendsService
       .editProviderTrends(editedTrend)
       .subscribe(() =>
